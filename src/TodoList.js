@@ -14,12 +14,14 @@ class TodoList {
     return item
   }
 
-  // Show only the first 20chars when displaying all items
-  // When seeing all the items, only show the first 20 chars of the item text, followed by '...'
-  // However, when displaying single items, show the whole item text.
-
   showAll() {
-    return this.items.slice(0, 20)
+    return this.items.map((item) => {
+      if (item.text.length > 20) {
+        const newText = item.text.substring(0, 20) + '...'
+        return { id: item.id, text: newText, status: 'incomplete' }
+      }
+      return item
+    })
   }
 
   // no option to set to incomplete though if set  by mistake
@@ -52,5 +54,8 @@ class TodoList {
     return this.items.splice(index, 1)[0]
   }
 }
+const todolist = new TodoList()
+todolist.create('turn the heating on to 25 degrees!')
+todolist.showAll()
 
 module.exports = TodoList
