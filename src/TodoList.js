@@ -39,11 +39,14 @@ class TodoList {
   }
 
   // no option to set to incomplete though if set  by mistake
-  setComplete(id) {
+  //Extension 1: toggle complete
+  toggleComplete(id) {
     // instead of filters and findIndex like I did in mine.
     const item = this.findBy(id)
     // giving item.status of the found id a new value
-    item.status = 'complete'
+    item.status === 'complete'
+      ? (item.status = 'incomplete')
+      : (item.status = 'complete')
     return item
   }
 

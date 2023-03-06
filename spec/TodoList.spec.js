@@ -51,7 +51,7 @@ describe('TodoList', () => {
     expect(todoList.showAll()).toEqual(expected)
   })
 
-  it('sets item to be complete if found', () => {
+  it('toggles item from incomplete to complete if found', () => {
     // set up
     const item1 = todoList.create('turn the heating on!')
     const expected = {
@@ -62,7 +62,28 @@ describe('TodoList', () => {
     }
 
     // execute
-    const result = todoList.setComplete(item1.id)
+    const result = todoList.toggleComplete(item1.id)
+
+    // verify
+    expect(result).toEqual(expected)
+  })
+
+  it('toggles item from complete to incomplete if found', () => {
+    // set up
+    const item1 = todoList.create('turn the heating on!')
+    // set to complete
+    todoList.toggleComplete(item1.id)
+
+    const expected = {
+      id: 1,
+      text: 'turn the heating on!',
+      status: 'incomplete',
+      date: formattedDate
+    }
+
+    // execute
+    // set back to incomplete
+    const result = todoList.toggleComplete(item1.id)
 
     // verify
     expect(result).toEqual(expected)
@@ -73,14 +94,14 @@ describe('TodoList', () => {
 
     // execute, verify
     // "toThrowEror" vs toEqual?
-    expect(() => todoList.setComplete(1)).toThrowError('Item not found')
+    expect(() => todoList.toggleComplete(1)).toThrowError('Item not found')
   })
 
   it('gets incomplete items', () => {
     // set up
     const item1 = todoList.create('turn the heating on!')
     const item2 = todoList.create('Do the washing up')
-    todoList.setComplete(item1.id)
+    todoList.toggleComplete(item1.id)
     const expected = [item2]
 
     // execute
@@ -94,7 +115,7 @@ describe('TodoList', () => {
     // set up
     const item1 = todoList.create('turn the heating on!')
     const item2 = todoList.create('Do the washing up')
-    todoList.setComplete(item1.id)
+    todoList.toggleComplete(item1.id)
     const expected = [item1]
 
     // execute
