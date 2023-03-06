@@ -4,21 +4,35 @@ class TodoList {
     this.items = []
   }
 
-  create(str) {
+  create(str, date = new Date()) {
     // increment the id value
     this.id++
     // id: updated/incremented id from line above, str=the todo, status: auto-set to incomplete
-    const item = { id: this.id, text: str, status: 'incomplete' }
+    const formattedDate = new Intl.DateTimeFormat('en-UK').format(date)
+    const item = {
+      id: this.id,
+      text: str,
+      status: 'incomplete',
+      date: formattedDate
+    }
     // add to this.array
     this.items.push(item)
+    console.log(item)
     return item
   }
 
   showAll() {
+    const formattedDate = new Intl.DateTimeFormat('en-UK').format(this.date)
+
     return this.items.map((item) => {
       if (item.text.length > 20) {
         const newText = item.text.substring(0, 20) + '...'
-        return { id: item.id, text: newText, status: 'incomplete' }
+        return {
+          id: item.id,
+          text: newText,
+          status: 'incomplete',
+          date: formattedDate
+        }
       }
       return item
     })
@@ -54,8 +68,9 @@ class TodoList {
     return this.items.splice(index, 1)[0]
   }
 }
-const todolist = new TodoList()
-todolist.create('turn the heating on to 25 degrees!')
-todolist.showAll()
+
+const newList = new TodoList()
+newList.create('slay codeing ex')
+newList.create('slay coding ttd')
 
 module.exports = TodoList

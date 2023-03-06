@@ -2,9 +2,13 @@ const TodoList = require('../src/TodoList.js')
 
 describe('TodoList', () => {
   let todoList
+  let date
+  let formattedDate
 
   beforeEach(() => {
     todoList = new TodoList()
+    date = new Date()
+    formattedDate = new Intl.DateTimeFormat('en-UK').format(date)
   })
 
   it('creates a todo item', () => {
@@ -12,8 +16,8 @@ describe('TodoList', () => {
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
-      // date: new Date()
+      status: 'incomplete',
+      date: formattedDate
     }
 
     // execute
@@ -28,12 +32,14 @@ describe('TodoList', () => {
     const item1 = {
       id: 1,
       text: 'turn the heating on ...',
-      status: 'incomplete'
+      status: 'incomplete',
+      date: formattedDate
     }
     const item2 = {
       id: 2,
       text: 'Do the washing up',
-      status: 'incomplete'
+      status: 'incomplete',
+      date: formattedDate
     }
     const expected = [item1, item2]
 
@@ -51,7 +57,8 @@ describe('TodoList', () => {
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'complete'
+      status: 'complete',
+      date: formattedDate
     }
 
     // execute
@@ -103,7 +110,8 @@ describe('TodoList', () => {
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
+      status: 'incomplete',
+      date: formattedDate
     }
 
     // execute
@@ -126,7 +134,8 @@ describe('TodoList', () => {
     const expected = {
       id: 1,
       text: 'turn the heating on!',
-      status: 'incomplete'
+      status: 'incomplete',
+      date: formattedDate
     }
 
     // execute
